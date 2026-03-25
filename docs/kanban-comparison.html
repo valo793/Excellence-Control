@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanban Legacy vs Foundation</title>
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --surface: #111823;
+      --surface-soft: #151f2b;
+      --line: #2a3747;
+      --text: #e7eef7;
+      --muted: #b4c0d0;
+      --accent: #5b9dff;
+      --warning: #d9a13c;
+      --danger: #d95f5f;
+      --success: #30b36f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Manrope, Segoe UI, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+    }
+    h1 { margin: 0 0 18px; font-size: 22px; }
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      padding: 14px;
+      min-height: 860px;
+    }
+    .panel h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+    .panel p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      background: var(--surface-soft);
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+    .kpi-row {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .kpi-row.legacy { grid-template-columns: repeat(3, 1fr); }
+    .kpi-row.foundation { grid-template-columns: repeat(5, 1fr); }
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface-soft);
+      padding: 8px;
+    }
+    .kpi .label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .kpi .value { margin-top: 3px; font-size: 18px; font-weight: 700; }
+    .kpi.warn { border-left: 3px solid var(--warning); }
+    .kpi.danger { border-left: 3px solid var(--danger); }
+    .kpi.success { border-left: 3px solid var(--success); }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+    }
+    .col {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 9px;
+      background: #0f1520;
+    }
+    .col-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .gov {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 8px;
+      font-size: 10px;
+    }
+    .tag {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 7px;
+      color: var(--muted);
+    }
+    .tag.warn { border-color: var(--warning); color: #f4c777; }
+    .tag.danger { border-color: var(--danger); color: #f2a0a0; }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 9px;
+      margin-bottom: 8px;
+    }
+    .title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.32;
+      margin-bottom: 6px;
+    }
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 8px;
+    }
+    .legacy .title { font-size: 13px; font-weight: 600; }
+    .legacy .card { background: #151d2a; }
+    .legend {
+      margin-top: 14px;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kanban Comparative Snapshot: Legacy vs Foundation-Enabled</h1>
+  <div class="compare">
+    <section class="panel legacy">
+      <h2>Legacy</h2>
+      <p>Expressive visual style, weaker governance separation, lower title dominance.</p>
+      <div class="header">
+        <span>Header tools mixed weight</span>
+        <span>Search + actions</span>
+      </div>
+      <div class="kpi-row legacy">
+        <div class="kpi"><div class="label">Projects</div><div class="value">86</div></div>
+        <div class="kpi"><div class="label">Estimated</div><div class="value">R$ 2.4M</div></div>
+        <div class="kpi"><div class="label">Realized</div><div class="value">R$ 1.2M</div></div>
+      </div>
+      <div class="board">
+        <article class="col">
+          <div class="col-head"><span>To Do</span><span>24</span></div>
+          <div class="card">
+            <div class="title">Line A optimization and setup changes</div>
+            <div class="meta"><span>Owner</span><span>2026-03-20</span></div>
+          </div>
+          <div class="card">
+            <div class="title">Packaging reduction initiative</div>
+            <div class="meta"><span>Owner</span><span>2026-03-11</span></div>
+          </div>
+        </article>
+        <article class="col">
+          <div class="col-head"><span>In Progress</span><span>18</span></div>
+          <div class="card">
+            <div class="title">Machine setup time reduction</div>
+            <div class="meta"><span>Owner</span><span>2026-02-19</span></div>
+          </div>
+          <div class="card">
+            <div class="title">Quality checklist automation</div>
+            <div class="meta"><span>Owner</span><span>2026-03-01</span></div>
+          </div>
+        </article>
+        <article class="col">
+          <div class="col-head"><span>Review</span><span>5</span></div>
+          <div class="card">
+            <div class="title">Supplier lead-time protocol</div>
+            <div class="meta"><span>Owner</span><span>2026-02-17</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel foundation">
+      <h2>Foundation-Enabled</h2>
+      <p>Governance-first hierarchy, fast scan KPIs, unmistakable overdue and escalation states.</p>
+      <div class="header">
+        <span>Header priorities clarified</span>
+        <span>Board controls explicit</span>
+      </div>
+      <div class="kpi-row foundation">
+        <div class="kpi"><div class="label">Active</div><div class="value">86</div></div>
+        <div class="kpi warn"><div class="label">WIP Breaches</div><div class="value">2</div></div>
+        <div class="kpi danger"><div class="label">Overdue</div><div class="value">9</div></div>
+        <div class="kpi warn"><div class="label">High Priority</div><div class="value">14</div></div>
+        <div class="kpi success"><div class="label">Realized/Target</div><div class="value">51%</div></div>
+      </div>
+      <div class="board">
+        <article class="col">
+          <div class="col-head"><span>To Do</span><span>24</span></div>
+          <div class="gov">
+            <span class="tag warn">WIP 24/16</span>
+            <span class="tag danger">Overdue 3</span>
+            <span class="tag warn">High 6</span>
+          </div>
+          <div class="card">
+            <div class="title">Line A optimization and setup changes</div>
+            <div class="gov"><span class="tag warn">Priority escalation</span></div>
+            <div class="meta"><span>Owner</span><span>2026-03-20</span></div>
+          </div>
+          <div class="card">
+            <div class="title">Packaging reduction initiative</div>
+            <div class="gov"><span class="tag danger">Overdue</span></div>
+            <div class="meta"><span>Owner</span><span>2026-03-11</span></div>
+          </div>
+        </article>
+        <article class="col">
+          <div class="col-head"><span>In Progress</span><span>18</span></div>
+          <div class="gov">
+            <span class="tag warn">WIP 18/12</span>
+            <span class="tag danger">Overdue 4</span>
+            <span class="tag warn">High 5</span>
+          </div>
+          <div class="card">
+            <div class="title">Machine setup time reduction</div>
+            <div class="gov"><span class="tag danger">Overdue</span><span class="tag warn">Priority escalation</span></div>
+            <div class="meta"><span>Owner</span><span>2026-02-19</span></div>
+          </div>
+          <div class="card">
+            <div class="title">Quality checklist automation</div>
+            <div class="meta"><span>Owner</span><span>2026-03-01</span></div>
+          </div>
+        </article>
+        <article class="col">
+          <div class="col-head"><span>Review</span><span>5</span></div>
+          <div class="gov">
+            <span class="tag">WIP 5/8</span>
+            <span class="tag warn">High 1</span>
+          </div>
+          <div class="card">
+            <div class="title">Supplier lead-time protocol</div>
+            <div class="meta"><span>Owner</span><span>2026-02-17</span></div>
+          </div>
+        </article>
+      </div>
+      <div class="legend">Structural comparison artifact focused on hierarchy and governance scan speed.</div>
+    </section>
+  </div>
+</body>
+</html>

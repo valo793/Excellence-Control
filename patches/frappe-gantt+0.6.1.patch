@@ -1,0 +1,38 @@
+diff --git a/node_modules/frappe-gantt/src/gantt.scss b/node_modules/frappe-gantt/src/gantt.scss
+index 9c91dad..19e4b14 100644
+--- a/node_modules/frappe-gantt/src/gantt.scss
++++ b/node_modules/frappe-gantt/src/gantt.scss
+@@ -1,3 +1,5 @@
++@use "sass:color";
++
+ $bar-color: #b8c2cc !default;
+ $bar-stroke: #8D99A6 !default;
+ $border-color: #e0e0e0 !default;
+@@ -93,11 +95,11 @@ $handle-color: #ddd !default;
+ 
+ 		&:hover {
+ 			.bar {
+-				fill: darken($bar-color, 5);
++				fill: color.adjust($bar-color, $lightness: -5%);
+ 			}
+ 
+ 			.bar-progress {
+-				fill: darken($blue, 5);
++				fill: color.adjust($blue, $lightness: -5%);
+ 			}
+ 
+ 			.handle {
+@@ -108,11 +110,11 @@ $handle-color: #ddd !default;
+ 
+ 		&.active {
+ 			.bar {
+-				fill: darken($bar-color, 5);
++				fill: color.adjust($bar-color, $lightness: -5%);
+ 			}
+ 
+ 			.bar-progress {
+-				fill: darken($blue, 5);
++				fill: color.adjust($blue, $lightness: -5%);
+ 			}
+ 		}
+ 	}

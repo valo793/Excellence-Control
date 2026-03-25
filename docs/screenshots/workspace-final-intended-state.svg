@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1040" viewBox="0 0 1800 1040">
+  <defs>
+    <style>
+      .bg { fill: #0b0f14; }
+      .surface0 { fill: #111823; stroke: #2a3747; stroke-width: 1; }
+      .surface1 { fill: #151f2b; stroke: #2a3747; stroke-width: 1; }
+      .text0 { fill: #e7eef7; font-family: Manrope, Arial, sans-serif; }
+      .text1 { fill: #b4c0d0; font-family: Manrope, Arial, sans-serif; }
+      .title { font-size: 22px; font-weight: 700; }
+      .h2 { font-size: 16px; font-weight: 700; }
+      .meta { font-size: 11px; font-weight: 500; }
+      .value { font-size: 19px; font-weight: 700; }
+      .nav { font-size: 13px; font-weight: 600; }
+      .chipT { font-size: 10px; font-weight: 600; font-family: Manrope, Arial, sans-serif; }
+      .chipNeutral { fill: #151f2b; stroke: #3a4a5e; stroke-width: 1; }
+      .chipWarn { fill: #2a2113; stroke: #d9a13c; stroke-width: 1; }
+      .chipDanger { fill: #301a1a; stroke: #d95f5f; stroke-width: 1; }
+      .chipSuccess { fill: #15271f; stroke: #30b36f; stroke-width: 1; }
+      .railWarn { fill: #d9a13c; }
+      .railDanger { fill: #d95f5f; }
+      .railSuccess { fill: #30b36f; }
+      .focusRing { fill: none; stroke: #5b9dff; stroke-width: 2; opacity: 0.95; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1800" height="1040" />
+
+  <!-- Shell -->
+  <rect class="surface0" x="20" y="20" width="1760" height="1000" rx="14" />
+
+  <!-- Sidebar -->
+  <rect class="surface1" x="36" y="36" width="276" height="968" rx="12" />
+  <text class="text0 h2" x="60" y="74">Excellence Control</text>
+  <text class="text1 meta" x="60" y="94">Operational Command Surface</text>
+
+  <rect class="surface0" x="52" y="120" width="244" height="44" rx="10" />
+  <text class="text0 nav" x="72" y="147">Projects</text>
+  <rect class="surface1" x="52" y="172" width="244" height="44" rx="10" />
+  <text class="text1 nav" x="72" y="199">Dashboard</text>
+  <rect class="surface1" x="52" y="224" width="244" height="44" rx="10" />
+  <text class="text1 nav" x="72" y="251">Roadmap</text>
+  <rect class="surface1" x="52" y="276" width="244" height="44" rx="10" />
+  <text class="text1 nav" x="72" y="303">Table</text>
+
+  <text class="text1 meta" x="60" y="930">System</text>
+  <text class="text1 nav" x="60" y="958">Settings</text>
+  <text class="text1 nav" x="60" y="986">Logout</text>
+
+  <!-- Main -->
+  <rect class="surface0" x="328" y="36" width="1436" height="968" rx="12" />
+
+  <!-- Header -->
+  <rect class="surface1" x="344" y="52" width="1404" height="64" rx="10" />
+  <text class="text1 meta" x="368" y="78">Workspace</text>
+  <text class="text0 h2" x="368" y="99">Project Board</text>
+  <rect class="surface0" x="606" y="66" width="640" height="36" rx="9" />
+  <text class="text1 meta" x="626" y="89">Search title, owner, area...</text>
+  <rect class="surface0" x="1260" y="66" width="110" height="36" rx="9" />
+  <text class="text1 meta" x="1290" y="89">Filters</text>
+  <rect class="surface0" x="1380" y="66" width="110" height="36" rx="9" />
+  <text class="text1 meta" x="1411" y="89">Tools</text>
+  <rect x="1500" y="66" width="232" height="36" rx="9" fill="#5b9dff" />
+  <text class="text0 meta" x="1584" y="89">New Project</text>
+
+  <!-- KPI Strip -->
+  <rect class="surface1" x="344" y="132" width="1404" height="98" rx="10" />
+
+  <rect class="surface0" x="360" y="148" width="262" height="66" rx="9" />
+  <text class="text1 meta" x="376" y="170">Active Projects</text>
+  <text class="text0 value" x="376" y="198">86</text>
+
+  <rect class="surface0" x="634" y="148" width="262" height="66" rx="9" />
+  <rect class="railWarn" x="634" y="148" width="3" height="66" />
+  <text class="text1 meta" x="650" y="170">WIP Breaches</text>
+  <text class="text0 value" x="650" y="198">2</text>
+
+  <rect class="surface0" x="908" y="148" width="262" height="66" rx="9" />
+  <rect class="railDanger" x="908" y="148" width="3" height="66" />
+  <text class="text1 meta" x="924" y="170">Overdue Items</text>
+  <text class="text0 value" x="924" y="198">9</text>
+
+  <rect class="surface0" x="1182" y="148" width="262" height="66" rx="9" />
+  <rect class="railWarn" x="1182" y="148" width="3" height="66" />
+  <text class="text1 meta" x="1198" y="170">High Priority Open</text>
+  <text class="text0 value" x="1198" y="198">14</text>
+
+  <rect class="surface0" x="1456" y="148" width="276" height="66" rx="9" />
+  <rect class="railSuccess" x="1456" y="148" width="3" height="66" />
+  <text class="text1 meta" x="1472" y="170">Realized vs Target</text>
+  <text class="text0 value" x="1472" y="198">51%</text>
+
+  <!-- Board Controls -->
+  <rect class="surface1" x="344" y="242" width="1404" height="44" rx="10" />
+  <text class="text1 meta" x="364" y="269">Board controls</text>
+  <rect class="surface0" x="480" y="252" width="128" height="24" rx="8" />
+  <text class="text1 meta" x="514" y="268">Comfortable</text>
+  <rect class="surface0" x="1610" y="248" width="122" height="32" rx="8" />
+  <text class="text1 meta" x="1634" y="269">Hide Archived</text>
+
+  <!-- Columns -->
+  <rect class="surface1" x="344" y="302" width="330" height="686" rx="10" />
+  <rect class="surface1" x="686" y="302" width="330" height="686" rx="10" />
+  <rect class="surface1" x="1028" y="302" width="330" height="686" rx="10" />
+  <rect class="surface1" x="1370" y="302" width="378" height="686" rx="10" />
+
+  <!-- Column heads -->
+  <text class="text1 meta" x="362" y="330">TO DO</text>
+  <text class="text1 meta" x="704" y="330">IN PROGRESS</text>
+  <text class="text1 meta" x="1046" y="330">REVIEW</text>
+  <text class="text1 meta" x="1388" y="330">DONE</text>
+
+  <rect class="chipWarn" x="362" y="338" width="72" height="18" rx="9" />
+  <text class="chipT" x="372" y="351" fill="#f4c777">WIP 24/16</text>
+  <rect class="chipDanger" x="440" y="338" width="76" height="18" rx="9" />
+  <text class="chipT" x="451" y="351" fill="#f2a0a0">Overdue 3</text>
+  <rect class="chipWarn" x="522" y="338" width="58" height="18" rx="9" />
+  <text class="chipT" x="533" y="351" fill="#f4c777">High 6</text>
+
+  <rect class="chipWarn" x="704" y="338" width="72" height="18" rx="9" />
+  <text class="chipT" x="714" y="351" fill="#f4c777">WIP 18/12</text>
+  <rect class="chipDanger" x="782" y="338" width="76" height="18" rx="9" />
+  <text class="chipT" x="793" y="351" fill="#f2a0a0">Overdue 4</text>
+  <rect class="chipWarn" x="864" y="338" width="58" height="18" rx="9" />
+  <text class="chipT" x="875" y="351" fill="#f4c777">High 5</text>
+
+  <rect class="chipNeutral" x="1046" y="338" width="66" height="18" rx="9" />
+  <text class="chipT" x="1056" y="351" fill="#b4c0d0">WIP 5/8</text>
+  <rect class="chipWarn" x="1118" y="338" width="58" height="18" rx="9" />
+  <text class="chipT" x="1129" y="351" fill="#f4c777">High 1</text>
+
+  <!-- Card template -->
+  <rect class="surface0" x="360" y="370" width="298" height="170" rx="9" />
+  <text class="text0 h2" x="376" y="396" style="font-size:16px;">Line A optimization and setup changes</text>
+  <rect class="chipWarn" x="376" y="406" width="112" height="18" rx="9" />
+  <text class="chipT" x="387" y="419" fill="#f4c777">Priority escalation</text>
+  <rect class="chipNeutral" x="534" y="406" width="106" height="18" rx="9" />
+  <text class="chipT" x="546" y="419" fill="#b4c0d0">HIGH</text>
+  <line x1="376" y1="442" x2="642" y2="442" stroke="#2a3747" />
+  <text class="text1 meta" x="376" y="466">Owner: Ana Ribeiro</text>
+  <text class="text1 meta" x="542" y="466">Due: 2026-03-20</text>
+
+  <rect class="surface0" x="360" y="552" width="298" height="170" rx="9" />
+  <text class="text0 h2" x="376" y="578" style="font-size:16px;">Packaging reduction initiative</text>
+  <rect class="chipDanger" x="376" y="588" width="70" height="18" rx="9" />
+  <text class="chipT" x="388" y="601" fill="#f2a0a0">Overdue</text>
+  <rect class="chipNeutral" x="534" y="588" width="106" height="18" rx="9" />
+  <text class="chipT" x="546" y="601" fill="#b4c0d0">MEDIUM</text>
+  <line x1="376" y1="624" x2="642" y2="624" stroke="#2a3747" />
+  <text class="text1 meta" x="376" y="648">Owner: Carlos Lima</text>
+  <text class="text1 meta" x="542" y="648">Due: 2026-03-11</text>
+
+  <rect class="surface0" x="702" y="370" width="298" height="170" rx="9" />
+  <text class="text0 h2" x="718" y="396" style="font-size:16px;">Machine setup time reduction</text>
+  <rect class="chipDanger" x="718" y="406" width="70" height="18" rx="9" />
+  <text class="chipT" x="730" y="419" fill="#f2a0a0">Overdue</text>
+  <rect class="chipWarn" x="794" y="406" width="112" height="18" rx="9" />
+  <text class="chipT" x="805" y="419" fill="#f4c777">Priority escalation</text>
+  <rect class="chipNeutral" x="912" y="406" width="88" height="18" rx="9" />
+  <text class="chipT" x="924" y="419" fill="#b4c0d0">HIGH</text>
+  <line x1="718" y1="442" x2="984" y2="442" stroke="#2a3747" />
+  <text class="text1 meta" x="718" y="466">Owner: Victor Costa</text>
+  <text class="text1 meta" x="884" y="466">Due: 2026-02-19</text>
+
+  <rect class="surface0" x="1044" y="370" width="298" height="170" rx="9" />
+  <text class="text0 h2" x="1060" y="396" style="font-size:16px;">Supplier lead-time protocol</text>
+  <rect class="chipNeutral" x="1242" y="406" width="100" height="18" rx="9" />
+  <text class="chipT" x="1253" y="419" fill="#b4c0d0">LOW</text>
+  <line x1="1060" y1="442" x2="1326" y2="442" stroke="#2a3747" />
+  <text class="text1 meta" x="1060" y="466">Owner: Julia Moraes</text>
+  <text class="text1 meta" x="1226" y="466">Due: 2026-02-17</text>
+
+  <rect class="surface0" x="1386" y="370" width="346" height="170" rx="9" />
+  <text class="text0 h2" x="1402" y="396" style="font-size:16px;">Plant SOP rollout (completed)</text>
+  <rect class="chipSuccess" x="1620" y="406" width="112" height="18" rx="9" />
+  <text class="chipT" x="1632" y="419" fill="#80e0af">DONE</text>
+  <line x1="1402" y1="442" x2="1716" y2="442" stroke="#2a3747" />
+  <text class="text1 meta" x="1402" y="466">Owner: Matheus Prado</text>
+  <text class="text1 meta" x="1582" y="466">Completed: 2026-02-14</text>
+
+  <!-- Focus-state example -->
+  <rect class="focusRing" x="356" y="366" width="306" height="178" rx="11" />
+  <text class="text1 meta" x="344" y="1010">Final intended state mock: balanced composition, aligned chips/text, governance-first calm.</text>
+</svg>

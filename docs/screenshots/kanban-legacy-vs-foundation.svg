@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1000" viewBox="0 0 1800 1000">
+  <defs>
+    <style>
+      .bg { fill: #0b0f14; }
+      .panel { fill: #111823; stroke: #2a3747; stroke-width: 1; }
+      .card { fill: #151f2b; stroke: #2a3747; stroke-width: 1; }
+      .title { fill: #e7eef7; font-family: Manrope, Arial, sans-serif; font-size: 18px; font-weight: 700; }
+      .subtitle { fill: #b4c0d0; font-family: Manrope, Arial, sans-serif; font-size: 12px; }
+      .label { fill: #b4c0d0; font-family: Manrope, Arial, sans-serif; font-size: 10px; text-transform: uppercase; }
+      .value { fill: #e7eef7; font-family: Manrope, Arial, sans-serif; font-size: 20px; font-weight: 700; }
+      .chip { fill: #151f2b; stroke: #2a3747; stroke-width: 1; rx: 10; ry: 10; }
+      .chipText { fill: #b4c0d0; font-family: Manrope, Arial, sans-serif; font-size: 10px; }
+      .chipWarn { fill: #f4c777; font-family: Manrope, Arial, sans-serif; font-size: 10px; font-weight: 600; }
+      .chipDanger { fill: #f2a0a0; font-family: Manrope, Arial, sans-serif; font-size: 10px; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1800" height="1000" />
+  <text class="title" x="32" y="36">Kanban Comparative Snapshot: Legacy vs Foundation-Enabled</text>
+
+  <rect class="panel" x="24" y="58" width="870" height="920" rx="12" />
+  <text class="title" x="44" y="90">Legacy</text>
+  <text class="subtitle" x="44" y="110">Expressive style, weaker governance separation, lower title dominance.</text>
+
+  <rect class="card" x="44" y="126" width="830" height="42" rx="10" />
+  <text class="subtitle" x="60" y="152">Header tools mixed weight</text>
+  <text class="subtitle" x="722" y="152">Search + actions</text>
+
+  <rect class="card" x="44" y="182" width="266" height="80" rx="10" />
+  <rect class="card" x="324" y="182" width="266" height="80" rx="10" />
+  <rect class="card" x="604" y="182" width="270" height="80" rx="10" />
+  <text class="label" x="58" y="206">Projects</text><text class="value" x="58" y="236">86</text>
+  <text class="label" x="338" y="206">Estimated</text><text class="value" x="338" y="236">R$ 2.4M</text>
+  <text class="label" x="618" y="206">Realized</text><text class="value" x="618" y="236">R$ 1.2M</text>
+
+  <rect class="card" x="44" y="278" width="266" height="680" rx="10" />
+  <rect class="card" x="324" y="278" width="266" height="680" rx="10" />
+  <rect class="card" x="604" y="278" width="270" height="680" rx="10" />
+  <text class="subtitle" x="58" y="302">TO DO 24</text>
+  <text class="subtitle" x="338" y="302">IN PROGRESS 18</text>
+  <text class="subtitle" x="618" y="302">REVIEW 5</text>
+
+  <rect class="panel" x="58" y="320" width="238" height="112" rx="10" />
+  <text class="subtitle" x="72" y="346">Line A optimization and setup changes</text>
+  <text class="subtitle" x="72" y="418">Owner | 2026-03-20</text>
+  <rect class="panel" x="58" y="444" width="238" height="112" rx="10" />
+  <text class="subtitle" x="72" y="470">Packaging reduction initiative</text>
+  <text class="subtitle" x="72" y="542">Owner | 2026-03-11</text>
+
+  <rect class="panel" x="338" y="320" width="238" height="112" rx="10" />
+  <text class="subtitle" x="352" y="346">Machine setup time reduction</text>
+  <text class="subtitle" x="352" y="418">Owner | 2026-02-19</text>
+  <rect class="panel" x="338" y="444" width="238" height="112" rx="10" />
+  <text class="subtitle" x="352" y="470">Quality checklist automation</text>
+  <text class="subtitle" x="352" y="542">Owner | 2026-03-01</text>
+
+  <rect class="panel" x="618" y="320" width="242" height="112" rx="10" />
+  <text class="subtitle" x="632" y="346">Supplier lead-time protocol</text>
+  <text class="subtitle" x="632" y="418">Owner | 2026-02-17</text>
+
+  <rect class="panel" x="906" y="58" width="870" height="920" rx="12" />
+  <text class="title" x="926" y="90">Foundation-Enabled</text>
+  <text class="subtitle" x="926" y="110">Governance-first hierarchy, fast scan KPIs, unmistakable escalation states.</text>
+
+  <rect class="card" x="926" y="126" width="830" height="42" rx="10" />
+  <text class="subtitle" x="942" y="152">Header priorities clarified</text>
+  <text class="subtitle" x="1572" y="152">Board controls explicit</text>
+
+  <rect class="card" x="926" y="182" width="158" height="80" rx="10" />
+  <rect class="card" x="1098" y="182" width="158" height="80" rx="10" />
+  <rect class="card" x="1270" y="182" width="158" height="80" rx="10" />
+  <rect class="card" x="1442" y="182" width="158" height="80" rx="10" />
+  <rect class="card" x="1614" y="182" width="142" height="80" rx="10" />
+  <rect x="1098" y="182" width="3" height="80" fill="#d9a13c" />
+  <rect x="1270" y="182" width="3" height="80" fill="#d95f5f" />
+  <rect x="1442" y="182" width="3" height="80" fill="#d9a13c" />
+  <rect x="1614" y="182" width="3" height="80" fill="#30b36f" />
+  <text class="label" x="938" y="206">Active</text><text class="value" x="938" y="236">86</text>
+  <text class="label" x="1110" y="206">WIP Breaches</text><text class="value" x="1110" y="236">2</text>
+  <text class="label" x="1282" y="206">Overdue</text><text class="value" x="1282" y="236">9</text>
+  <text class="label" x="1454" y="206">High Priority</text><text class="value" x="1454" y="236">14</text>
+  <text class="label" x="1626" y="206">Realized/Target</text><text class="value" x="1626" y="236">51%</text>
+
+  <rect class="card" x="926" y="278" width="266" height="680" rx="10" />
+  <rect class="card" x="1206" y="278" width="266" height="680" rx="10" />
+  <rect class="card" x="1486" y="278" width="270" height="680" rx="10" />
+  <text class="subtitle" x="940" y="302">TO DO 24</text>
+  <text class="subtitle" x="1220" y="302">IN PROGRESS 18</text>
+  <text class="subtitle" x="1500" y="302">REVIEW 5</text>
+
+  <rect class="chip" x="940" y="314" width="70" height="18" />
+  <rect class="chip" x="1016" y="314" width="84" height="18" />
+  <rect class="chip" x="1106" y="314" width="62" height="18" />
+  <text class="chipWarn" x="948" y="326">WIP 24/16</text>
+  <text class="chipDanger" x="1024" y="326">Overdue 3</text>
+  <text class="chipWarn" x="1114" y="326">High 6</text>
+
+  <rect class="panel" x="940" y="344" width="238" height="140" rx="10" />
+  <text class="title" x="954" y="370" style="font-size:15px;">Line A optimization and setup changes</text>
+  <rect class="chip" x="954" y="386" width="112" height="18" />
+  <text class="chipWarn" x="962" y="398">Priority escalation</text>
+  <text class="subtitle" x="954" y="470">Owner | 2026-03-20</text>
+
+  <rect class="panel" x="940" y="496" width="238" height="140" rx="10" />
+  <text class="title" x="954" y="522" style="font-size:15px;">Packaging reduction initiative</text>
+  <rect class="chip" x="954" y="538" width="62" height="18" />
+  <text class="chipDanger" x="962" y="550">Overdue</text>
+  <text class="subtitle" x="954" y="622">Owner | 2026-03-11</text>
+
+  <rect class="chip" x="1220" y="314" width="70" height="18" />
+  <rect class="chip" x="1296" y="314" width="84" height="18" />
+  <rect class="chip" x="1386" y="314" width="62" height="18" />
+  <text class="chipWarn" x="1228" y="326">WIP 18/12</text>
+  <text class="chipDanger" x="1304" y="326">Overdue 4</text>
+  <text class="chipWarn" x="1394" y="326">High 5</text>
+
+  <rect class="panel" x="1220" y="344" width="238" height="140" rx="10" />
+  <text class="title" x="1234" y="370" style="font-size:15px;">Machine setup time reduction</text>
+  <rect class="chip" x="1234" y="386" width="62" height="18" />
+  <rect class="chip" x="1302" y="386" width="112" height="18" />
+  <text class="chipDanger" x="1242" y="398">Overdue</text>
+  <text class="chipWarn" x="1310" y="398">Priority escalation</text>
+  <text class="subtitle" x="1234" y="470">Owner | 2026-02-19</text>
+
+  <rect class="panel" x="1220" y="496" width="238" height="140" rx="10" />
+  <text class="title" x="1234" y="522" style="font-size:15px;">Quality checklist automation</text>
+  <text class="subtitle" x="1234" y="622">Owner | 2026-03-01</text>
+
+  <rect class="chip" x="1500" y="314" width="64" height="18" />
+  <rect class="chip" x="1568" y="314" width="64" height="18" />
+  <text class="chipText" x="1508" y="326">WIP 5/8</text>
+  <text class="chipWarn" x="1576" y="326">High 1</text>
+
+  <rect class="panel" x="1500" y="344" width="242" height="140" rx="10" />
+  <text class="title" x="1514" y="370" style="font-size:15px;">Supplier lead-time protocol</text>
+  <text class="subtitle" x="1514" y="470">Owner | 2026-02-17</text>
+</svg>
