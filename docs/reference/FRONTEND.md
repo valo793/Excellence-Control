@@ -43,6 +43,13 @@ src/
     VerifyEmailView.jsx
 ```
 
+## Production hosting model
+
+- Vite is kept as the frontend build tool.
+- IIS serves only the generated static frontend artifact from `dist/`.
+- Production hosting assumes deployment at the site root (`/`), not under a virtual directory.
+- `public/web.config` is part of the frontend artifact and enables SPA route rewrites for IIS.
+
 ## State model
 
 `App.jsx` centralizes UI and data state:
@@ -127,6 +134,13 @@ Implemented in `src/config/oracle.js`:
 - `rememberMe=true`: token in `localStorage`
 - Automatic token cleanup on API `401`
 
+## API base URL contract
+
+- `VITE_API_URL` is the single production contract for the frontend-to-API origin.
+- Development keeps a localhost fallback for convenience.
+- Production builds fail fast when `VITE_API_URL` is missing.
+- Attachment download URLs must use the same resolved API base as REST requests.
+
 ## Frontend troubleshooting
 
 - Stale UI after API changes:
@@ -143,3 +157,6 @@ Implemented in `src/config/oracle.js`:
   - verify root `.dark` class is toggled by settings effect
 - Filter popup not reflecting expected data:
   - confirm filters were applied (not only edited in draft)
+- IIS route returning 404 on direct access:
+  - confirm `web.config` was deployed with the built frontend
+  - confirm URL Rewrite is installed on the IIS server

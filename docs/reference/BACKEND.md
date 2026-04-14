@@ -66,6 +66,22 @@ SMTP_PASS=<smtp_password>
 SMTP_FROM=<noreply@your-domain.com>
 ```
 
+### Production frontend on IIS
+
+For the IIS frontend deployment model used by this project:
+
+```env
+NODE_ENV=production
+APP_WEB_URL=https://frontend.your-corporate-domain
+CORS_ORIGIN=https://frontend.your-corporate-domain
+REFRESH_COOKIE_SECURE=true
+REFRESH_COOKIE_SAMESITE=Lax
+```
+
+Notes:
+- This assumes a corporate same-site HTTPS deployment pattern.
+- If the API is later published on a completely different site/domain, review refresh cookie policy before go-live.
+
 ## API endpoints
 
 ### Health
@@ -180,6 +196,7 @@ Notes:
 - Uploaded files are stored under `Server/uploads/projects/<id>/`.
 - Metadata is stored in `EC_APP.PROJECT_FILES`.
 - Delete flow removes DB record and attempts file deletion on disk.
+- IIS is not used to serve uploads in this phase; uploads remain served by the API under `/uploads/...`.
 
 ## Audit logging and rollback
 

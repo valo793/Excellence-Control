@@ -14,11 +14,11 @@ excelence-control/
   src/            # React frontend (Vite)
   Server/         # Express + Oracle backend
   public/         # Static assets (favicon/logo/etc)
+  docs/
+    changes/      # Implementation logs and change records
+    notes/        # Working notes, visual audits and planning artifacts
+    reference/    # Core system documentation
   README.md
-  ARCHITECTURE.md
-  BACKEND.md
-  FRONTEND.md
-  DATABASE.md
 ```
 
 ## Quick setup
@@ -43,6 +43,20 @@ Run:
 ```bash
 npm run dev
 ```
+
+### Frontend production build for IIS
+
+Create `.env.production` from `.env.production.example` and set the real API origin:
+
+```env
+VITE_API_URL=https://api.your-corporate-domain
+VITE_UI_FOUNDATION_V1=false
+```
+
+Notes:
+- `VITE_API_URL` is required for `npm run build` in production mode.
+- Production frontend hosting for this project targets the IIS site root (`/`), not a virtual subdirectory.
+- Vite remains the build tool; IIS only serves the generated `dist/` files.
 
 ### 2) Backend
 
@@ -86,16 +100,39 @@ npm run dev
 npm run build
 ```
 
+The production build copies `public/web.config` into `dist/` so the IIS deployment artifact is self-contained.
+
+## IIS deployment
+
+1. Build the frontend with `.env.production`.
+2. Publish only the generated `dist/` folder to the IIS site root.
+3. Keep the Node/Express API running separately.
+4. Ensure the backend environment uses the IIS frontend URL:
+
+```env
+APP_WEB_URL=https://frontend.your-corporate-domain
+CORS_ORIGIN=https://frontend.your-corporate-domain
+REFRESH_COOKIE_SECURE=true
+REFRESH_COOKIE_SAMESITE=Lax
+```
+
+Operational notes:
+- `web.config` rewrites SPA routes like `/verify-email` to `index.html`.
+- `/assets/*` should be cached aggressively; `index.html` should not.
+- Uploaded project files remain served by the backend under `/uploads/...`.
+
 ## Documentation index
 
-- `ARCHITECTURE.md`: system overview, module boundaries, data flow, design decisions
-- `BACKEND.md`: API stack, structure, auth, endpoints, env and operational notes
-- `FRONTEND.md`: UI architecture, views/components, state, theme and UX patterns
-- `DATABASE.md`: Oracle data model, key tables/relationships and migrations
-- `docs/KANBAN_STRUCTURE_MOCK_V1.md`: low-fidelity Kanban hierarchy mock used as validation gate before structural board refactor
+- `docs/README.md`: documentation map and folder guide
+- `docs/changes/2026-03-25_IIS_FRONTEND_MIGRATION.md`: record of the IIS/frontend migration changes, dev test impact and production rollout notes
+- `docs/reference/ARCHITECTURE.md`: system overview, module boundaries, data flow, design decisions
+- `docs/reference/BACKEND.md`: API stack, structure, auth, endpoints, env and operational notes
+- `docs/reference/FRONTEND.md`: UI architecture, views/components, state, theme and UX patterns
+- `docs/reference/DATABASE.md`: Oracle data model, key tables/relationships and migrations
+- `docs/notes/KANBAN_STRUCTURE_MOCK_V1.md`: low-fidelity Kanban hierarchy mock used as validation gate before structural board refactor
 - `docs/screenshots/kanban-legacy-vs-foundation.svg`: comparative legacy vs foundation-enabled Kanban snapshot artifact
-- `docs/VISUAL_COHESION_PASS_V1.md`: holistic visual direction statement and workspace cohesion intent
-- `docs/SPACING_AUDIT_WORKSPACE_V1.md`: strict spacing-scale audit confirmation for workspace shell + Kanban scope
+- `docs/notes/VISUAL_COHESION_PASS_V1.md`: holistic visual direction statement and workspace cohesion intent
+- `docs/notes/SPACING_AUDIT_WORKSPACE_V1.md`: strict spacing-scale audit confirmation for workspace shell + Kanban scope
 - `docs/screenshots/workspace-final-intended-state.svg`: refined final-state workspace mock (single target vision)
 
 ## Troubleshooting

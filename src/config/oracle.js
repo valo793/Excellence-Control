@@ -1,6 +1,32 @@
 // src/config/oracle.js
-const BASE = (import.meta.env?.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
+const DEV_FALLBACK_BASE = 'http://localhost:3001';
 const TOKEN_KEY = 'ec_token';
+
+function normalizeBaseUrl(value) {
+  return String(value || '').trim().replace(/\/+$/, '');
+}
+
+function resolveApiBase() {
+  const envBase = normalizeBaseUrl(import.meta.env?.VITE_API_URL);
+  if (envBase) return envBase;
+  if (import.meta.env?.DEV) return DEV_FALLBACK_BASE;
+  return '';
+}
+
+export const API_BASE = resolveApiBase();
+const BASE = API_BASE;
+
+export function buildApiUrl(path = '') {
+  const rawPath = String(path || '').trim();
+  if (!rawPath) return API_BASE;
+  if (/^https?:\/\//i.test(rawPath)) return rawPath;
+
+  if (!API_BASE) {
+    throw new Error('API base URL is not configured. Set VITE_API_URL for this build.');
+  }
+
+  return `${API_BASE}${rawPath.startsWith('/') ? rawPath : `/${rawPath}`}`;
+}
 
 function getStoredToken() {
   try {
@@ -102,7 +128,7 @@ function request(url, options = {}) {
 // ---------------- AUTH ----------------
 
 export async function registerUser({ email, name, password }) {
-  const res = await request(`${BASE}/api/auth/register`, {
+  const res = await request(buildApiUrl('/api/auth/register'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -120,7 +146,7 @@ export async function registerUser({ email, name, password }) {
 }
 
 export async function loginUser({ email, password, rememberMe = false }) {
-  const res = await request(`${BASE}/api/auth/login`, {
+  const res = await request(buildApiUrl('/api/auth/login'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -137,7 +163,7 @@ export async function loginUser({ email, password, rememberMe = false }) {
 }
 
 export async function refreshSession() {
-  const res = await request(`${BASE}/api/auth/refresh`, {
+  const res = await request(buildApiUrl('/api/auth/refresh'), {
     method: 'POST',
     headers: {
       ...authHeaders(),
@@ -156,7 +182,7 @@ export async function verifyEmailToken(token) {
   const params = new URLSearchParams();
   params.set('token', token || '');
 
-  const res = await request(`${BASE}/api/auth/verify-email?${params.toString()}`, {
+  const res = await request(buildApiUrl(`/api/auth/verify-email?${params.toString()}`), {
     method: 'GET',
     headers: {
       ...authHeaders(),
@@ -166,7 +192,7 @@ export async function verifyEmailToken(token) {
 }
 
 export async function resendVerificationEmail({ email }) {
-  const res = await request(`${BASE}/api/auth/resend-verification`, {
+  const res = await request(buildApiUrl('/api/auth/resend-verification'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -179,7 +205,7 @@ export async function resendVerificationEmail({ email }) {
 
 export async function logoutUser() {
   try {
-    const res = await request(`${BASE}/api/auth/logout`, {
+    const res = await request(buildApiUrl('/api/auth/logout'), {
       method: 'POST',
       headers: {
         ...authHeaders(),
@@ -192,7 +218,7 @@ export async function logoutUser() {
 }
 
 export async function getCurrentUser() {
-  const res = await request(`${BASE}/api/auth/me`, {
+  const res = await request(buildApiUrl('/api/auth/me'), {
     headers: {
       ...authHeaders(),
     },
@@ -201,7 +227,7 @@ export async function getCurrentUser() {
 }
 
 export async function forgotPassword({ email }) {
-  const res = await request(`${BASE}/api/auth/forgot-password`, {
+  const res = await request(buildApiUrl('/api/auth/forgot-password'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -213,7 +239,7 @@ export async function forgotPassword({ email }) {
 }
 
 export async function resetPassword({ email, token, password }) {
-  const res = await request(`${BASE}/api/auth/reset-password`, {
+  const res = await request(buildApiUrl('/api/auth/reset-password'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -227,7 +253,7 @@ export async function resetPassword({ email, token, password }) {
 // ---------------- PROJECTS ----------------
 
 export async function getProjects() {
-  const res = await request(`${BASE}/api/projects`, {
+  const res = await request(buildApiUrl('/api/projects'), {
     headers: {
       ...authHeaders(),
     },
@@ -242,8 +268,8 @@ export async function getProjectEarnings(projectId, { year } = {}) {
   }
   const qs = params.toString();
   const url = qs
-    ? `${BASE}/api/projects/${projectId}/earnings?${qs}`
-    : `${BASE}/api/projects/${projectId}/earnings`;
+    ? buildApiUrl(`/api/projects/${projectId}/earnings?${qs}`)
+    : buildApiUrl(`/api/projects/${projectId}/earnings`);
   const res = await request(url, {
     headers: {
       ...authHeaders(),
@@ -253,7 +279,7 @@ export async function getProjectEarnings(projectId, { year } = {}) {
 }
 
 export async function upsertProjectEarning(projectId, { year, month, value, tipo, dolarValue, earningStatus }) {
-  const res = await request(`${BASE}/api/projects/${projectId}/earnings`, {
+  const res = await request(buildApiUrl(`/api/projects/${projectId}/earnings`), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -272,7 +298,7 @@ export async function upsertProjectEarning(projectId, { year, month, value, tipo
 }
 
 export async function importEarningsBulk(rows = []) {
-  const res = await request(`${BASE}/api/projects/earnings/import`, {
+  const res = await request(buildApiUrl('/api/projects/earnings/import'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -285,7 +311,7 @@ export async function importEarningsBulk(rows = []) {
 
 export async function replaceProjectEarnings(projectId, items = []) {
   const safeItems = Array.isArray(items) ? items : [];
-  const res = await request(`${BASE}/api/projects/${projectId}/earnings`, {
+  const res = await request(buildApiUrl(`/api/projects/${projectId}/earnings`), {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -299,7 +325,7 @@ export async function replaceProjectEarnings(projectId, items = []) {
 export async function deleteProjectEarning(projectId, year, month) {
   const safeYear = encodeURIComponent(String(year ?? '').trim());
   const safeMonth = encodeURIComponent(String(month ?? '').trim());
-  const res = await request(`${BASE}/api/projects/${projectId}/earnings/${safeYear}/${safeMonth}`, {
+  const res = await request(buildApiUrl(`/api/projects/${projectId}/earnings/${safeYear}/${safeMonth}`), {
     method: 'DELETE',
     headers: {
       ...authHeaders(),
@@ -309,7 +335,7 @@ export async function deleteProjectEarning(projectId, year, month) {
 }
 
 export async function createProject(projectData) {
-  const res = await request(`${BASE}/api/projects`, {
+  const res = await request(buildApiUrl('/api/projects'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -326,7 +352,7 @@ export async function importProjectsBulk({
   invalidRowsCount = 0,
   externalErrors = [],
 } = {}) {
-  const res = await request(`${BASE}/api/projects/import`, {
+  const res = await request(buildApiUrl('/api/projects/import'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -347,7 +373,7 @@ export async function createProjectImportJob({
   invalidRowsCount = 0,
   externalErrors = [],
 } = {}) {
-  const res = await request(`${BASE}/api/projects/import/jobs`, {
+  const res = await request(buildApiUrl('/api/projects/import/jobs'), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -364,7 +390,7 @@ export async function createProjectImportJob({
 
 export async function getProjectImportJob(jobId) {
   const safeId = encodeURIComponent(String(jobId || '').trim());
-  const res = await request(`${BASE}/api/projects/import/jobs/${safeId}`, {
+  const res = await request(buildApiUrl(`/api/projects/import/jobs/${safeId}`), {
     headers: {
       ...authHeaders(),
     },
@@ -374,7 +400,7 @@ export async function getProjectImportJob(jobId) {
 
 export async function cancelProjectImportJob(jobId) {
   const safeId = encodeURIComponent(String(jobId || '').trim());
-  const res = await request(`${BASE}/api/projects/import/jobs/${safeId}`, {
+  const res = await request(buildApiUrl(`/api/projects/import/jobs/${safeId}`), {
     method: 'DELETE',
     headers: {
       ...authHeaders(),
@@ -384,7 +410,7 @@ export async function cancelProjectImportJob(jobId) {
 }
 
 export async function updateProject(id, partialData) {
-  const res = await request(`${BASE}/api/projects/${id}`, {
+  const res = await request(buildApiUrl(`/api/projects/${id}`), {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -396,7 +422,7 @@ export async function updateProject(id, partialData) {
 }
 
 export async function deleteProject(id) {
-  const res = await request(`${BASE}/api/projects/${id}`, {
+  const res = await request(buildApiUrl(`/api/projects/${id}`), {
     method: 'DELETE',
     headers: {
       ...authHeaders(),
@@ -409,7 +435,7 @@ export async function deleteProject(id) {
 // ---------------- DB Ping ----------------
 
 export async function pingDb() {
-  const res = await request(`${BASE}/api/db/ping`, {
+  const res = await request(buildApiUrl('/api/db/ping'), {
     headers: {
       ...authHeaders(),
     },
@@ -420,7 +446,7 @@ export async function pingDb() {
 // ---------------- ADMIN ----------------
 
 export async function adminGetUsers() {
-  const res = await request(`${BASE}/api/admin/users`, {
+  const res = await request(buildApiUrl('/api/admin/users'), {
     headers: {
       ...authHeaders(),
     },
@@ -429,7 +455,7 @@ export async function adminGetUsers() {
 }
 
 export async function adminUpdateUser(id, payload) {
-  const res = await request(`${BASE}/api/admin/users/${id}`, {
+  const res = await request(buildApiUrl(`/api/admin/users/${id}`), {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -462,8 +488,8 @@ export async function adminGetUserAuditLogs(params = {}) {
 
   const query = qs.toString();
   const url = query
-    ? `${BASE}/api/admin/audit/users?${query}`
-    : `${BASE}/api/admin/audit/users`;
+    ? buildApiUrl(`/api/admin/audit/users?${query}`)
+    : buildApiUrl('/api/admin/audit/users');
 
   const res = await request(url, {
     headers: {
@@ -474,7 +500,7 @@ export async function adminGetUserAuditLogs(params = {}) {
 }
 
 export async function adminGetUserAuditDetail(id) {
-  const res = await request(`${BASE}/api/admin/audit/users/${id}`, {
+  const res = await request(buildApiUrl(`/api/admin/audit/users/${id}`), {
     headers: {
       ...authHeaders(),
     },
@@ -483,7 +509,7 @@ export async function adminGetUserAuditDetail(id) {
 }
 
 export async function adminRevertUserAuditLog(id, payload = {}) {
-  const res = await request(`${BASE}/api/admin/audit/users/${id}/revert`, {
+  const res = await request(buildApiUrl(`/api/admin/audit/users/${id}/revert`), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -497,7 +523,7 @@ export async function adminRevertUserAuditLog(id, payload = {}) {
 // ---------------- DASHBOARD ----------------
 
 export async function getDashboardKpis(queryString) {
-  const res = await request(`${BASE}/api/dashboard/kpis?${queryString}`, {
+  const res = await request(buildApiUrl(`/api/dashboard/kpis?${queryString}`), {
     headers: {
       ...authHeaders(),
     },
@@ -506,7 +532,7 @@ export async function getDashboardKpis(queryString) {
 }
 
 export async function getDashboardCharts(queryString) {
-  const res = await request(`${BASE}/api/dashboard/charts?${queryString}`, {
+  const res = await request(buildApiUrl(`/api/dashboard/charts?${queryString}`), {
     headers: {
       ...authHeaders(),
     },
@@ -515,7 +541,7 @@ export async function getDashboardCharts(queryString) {
 }
 
 export async function getDashboardLeadTime(queryString) {
-  const res = await request(`${BASE}/api/dashboard/lead-time?${queryString}`, {
+  const res = await request(buildApiUrl(`/api/dashboard/lead-time?${queryString}`), {
     headers: {
       ...authHeaders(),
     },
@@ -524,7 +550,7 @@ export async function getDashboardLeadTime(queryString) {
 }
 
 export async function getDashboardCosts(queryString) {
-  const res = await request(`${BASE}/api/dashboard/costs?${queryString}`, {
+  const res = await request(buildApiUrl(`/api/dashboard/costs?${queryString}`), {
     headers: {
       ...authHeaders(),
     },
@@ -534,7 +560,7 @@ export async function getDashboardCosts(queryString) {
 
 export async function getDashboardCostsMatrix(queryString) {
   const suffix = queryString ? `?${queryString}` : '';
-  const res = await request(`${BASE}/api/dashboard/costs/matrix${suffix}`, {
+  const res = await request(buildApiUrl(`/api/dashboard/costs/matrix${suffix}`), {
     headers: {
       ...authHeaders(),
     },
@@ -552,8 +578,8 @@ export async function getDashboardCostProjects({ year, month, search, dateFrom, 
 
   const qs = params.toString();
   const url = qs
-    ? `${BASE}/api/dashboard/costs/projects?${qs}`
-    : `${BASE}/api/dashboard/costs/projects`;
+    ? buildApiUrl(`/api/dashboard/costs/projects?${qs}`)
+    : buildApiUrl('/api/dashboard/costs/projects');
 
   const res = await request(url, {
     headers: {
@@ -571,7 +597,7 @@ export async function uploadProjectFiles(projectId, files) {
     formData.append('files', file);
   }
 
-  const res = await request(`${BASE}/api/projects/${projectId}/files`, {
+  const res = await request(buildApiUrl(`/api/projects/${projectId}/files`), {
     method: 'POST',
     headers: {
       ...authHeaders(),
@@ -583,7 +609,7 @@ export async function uploadProjectFiles(projectId, files) {
 }
 
 export async function getProjectFiles(projectId) {
-  const res = await request(`${BASE}/api/projects/${projectId}/files`, {
+  const res = await request(buildApiUrl(`/api/projects/${projectId}/files`), {
     headers: {
       ...authHeaders(),
     },
@@ -592,7 +618,7 @@ export async function getProjectFiles(projectId) {
 }
 
 export async function deleteProjectFile(projectId, fileId) {
-  const res = await request(`${BASE}/api/projects/${projectId}/files/${fileId}`, {
+  const res = await request(buildApiUrl(`/api/projects/${projectId}/files/${fileId}`), {
     method: 'DELETE',
     headers: {
       ...authHeaders(),

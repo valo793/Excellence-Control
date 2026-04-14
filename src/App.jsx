@@ -32,6 +32,7 @@ import { sanitizeGanttTasks } from './utils/gantt';
 
 // --- FunÃ§Ãµes de API (ComunicaÃ§Ã£o com Backend) ---
 import {
+  buildApiUrl,
   getProjects as apiGetProjects,
   createProject as apiCreateProject,
   importProjectsBulk as apiImportProjectsBulk,
@@ -53,7 +54,6 @@ import {
   importEarningsBulk as apiImportEarningsBulk,
 } from './config/oracle'
 
-const API_BASE = import.meta.env?.VITE_API_URL
 const FOUNDATION_V1_ENABLED = /^(1|true|yes|on)$/i.test(
   String(import.meta.env?.VITE_UI_FOUNDATION_V1 || '').trim(),
 );
@@ -879,7 +879,7 @@ export default function App() {
         size: f.FILE_SIZE,
         type: f.MIME_TYPE,
         path: f.FILE_PATH,
-        url: `${API_BASE}${f.FILE_PATH}`,
+        url: buildApiUrl(f.FILE_PATH),
       }));
     } catch (e) {
       console.error('Erro ao carregar anexos', e);
